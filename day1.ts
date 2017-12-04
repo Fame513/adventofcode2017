@@ -1,4 +1,4 @@
-import {getInput, getTestFunctin} from './helper';
+import {getInput, getTestFunction} from './helper';
 
 const DAY = 1;
 
@@ -32,8 +32,8 @@ async function run() {
 }
 
 function tests() {
-  const part1Test = getTestFunctin((input) => calculate(input, 1));
-  const part2Test = getTestFunctin((input) => calculate(input, input.length / 2));
+  const part1Test = getTestFunction((input) => calculate(input, 1));
+  const part2Test = getTestFunction((input) => calculate(input, input.length / 2));
   part1Test('1122', 3);
   part1Test('1111', 4);
   part1Test('1234', 0);

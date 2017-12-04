@@ -1,6 +1,6 @@
-import {getInput, getTestFunctin} from './helper';
+import {getInput, getTestFunction} from './helper';
 
-const DAY = 3;
+const DAY = 4;
 
 test();
 run().then(([result1, result2]) => {
@@ -8,21 +8,49 @@ run().then(([result1, result2]) => {
   console.log('Part 2:', result2);
 });
 
-function calculatePart1(input) {
+function calculatePart1(input: string[][]): number {
   let result = 0;
-
+    for (const row of input) {
+      if (isValidPart1(row))
+        result++;
+    }
   return result;
 }
 
 function calculatePart2(input) {
   let result = 0;
-
+  for (const row of input) {
+    if (isValidPart2(row))
+      result++;
+  }
   return result;
 }
 
+function isValidPart1(input: string[]): boolean {
+  const map = {};
+  for (const word of input) {
+    if (map[word])
+      return false;
+    map[word] = true;
+  }
+  return true;
+}
+
+function isValidPart2(input: string[]): boolean {
+  const map = {};
+  for (const word of input) {
+    const sortedWord = word.split('').sort().join('');
+    if (map[sortedWord])
+      return false;
+    map[sortedWord] = true;
+  }
+  return true;
+}
+
+
 
 function parse(input: string) {
-  const regexp = / /g;
+  const regexp = /\S+/g;
   return input.split('\n')
     .map(row => row.match(regexp))
 }
@@ -34,12 +62,16 @@ async function run() {
 }
 
 function test() {
-  const test1 = ``;
-  const testPart1 = getTestFunctin(input => calculatePart1(parse(input)));
-  testPart1(test1, 0);
+  const testPart1 = getTestFunction(input => isValidPart1(input.match(/\S+/g)));
+  testPart1('aa bb cc dd ee', true);
+  testPart1('aa bb cc dd aa', false);
+  testPart1('aa bb cc dd aaa', true);
 
-  const test2 = ``;
-  const testPart2 = getTestFunctin(input => calculatePart2(parse(input)));
-  testPart2(test2, 0);
+  const testPart2 = getTestFunction(input => isValidPart2(input.match(/\S+/g)));
+  testPart2('abcde fghij', true);
+  testPart2('abcde xyz ecdab', false);
+  testPart2('a ab abc abd abf abj', true);
+  testPart2('iiii oiii ooii oooi oooo', true);
+  testPart2('oiii ioii iioi iiio', false);
 
 }
