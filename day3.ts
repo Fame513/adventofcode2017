@@ -104,6 +104,7 @@ function test() {
   testPart1(12, 3);
   testPart1(23, 2);
   testPart1(1024, 31);
+  console.log('---------------------');
 
 
   const testPart2 = getTestFunction(calculatePart2);
@@ -115,4 +116,6 @@ function test() {
   testPart2(16, 23);
   testPart2(100, 122);
   testPart2(351, 362);
+  console.log('---------------------');
+
 }

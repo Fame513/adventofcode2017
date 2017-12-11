@@ -65,6 +65,10 @@ function test() {
   const test = `0 2 7 0`;
   const testPart1 = getTestFunction(input => calculatePart1(parse(input)));
   testPart1(test, 5);
+  console.log('---------------------');
+
   const testPart2 = getTestFunction(input => calculatePart2(parse(input)));
   testPart2(test, 4);
+  console.log('---------------------');
+
 }

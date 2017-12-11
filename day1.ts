@@ -38,10 +38,13 @@ function tests() {
   part1Test('1111', 4);
   part1Test('1234', 0);
   part1Test('91212129', 9);
+  console.log('---------------------');
 
   part2Test('1212', 6);
   part2Test('1221', 0);
   part2Test('123425', 4);
   part2Test('123123', 12);
   part2Test('12131415', 4);
+  console.log('---------------------');
+
 }

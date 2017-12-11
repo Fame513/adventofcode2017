@@ -48,8 +48,10 @@ function test() {
   const test = `0 3 0 1 -3`;
   const testPart1 = getTestFunction(input => calculatePart1(input.split(' ').map(v => +v)));
   testPart1(test, 5);
+  console.log('---------------------');
 
   const testPart2 = getTestFunction(input => calculatePart2(input.split(' ').map(v => +v)));
   testPart2(test, 10);
+  console.log('---------------------');
 
 }

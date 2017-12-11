@@ -129,9 +129,12 @@ gyxo (61)
 cntj (57)`;
   const testPart1 = getTestFunction(input => calculatePart1(parse(input)));
   testPart1(test, 'tknk');
+  console.log('---------------------');
 
   const testPart2 = getTestFunction(input => calculatePart2(parse(input)));
   testPart2(test, 60);
+  console.log('---------------------');
+
 }
 
 interface Tower {

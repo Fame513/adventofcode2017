@@ -104,10 +104,12 @@ c inc -20 if c == 10`;
   registers = {};
   const testPart1 = getTestFunction(input => calculatePart1(parse(input)));
   testPart1(test, 1);
+  console.log('---------------------');
 
   registers = {};
   const testPart2 = getTestFunction(input => calculatePart2(parse(input)));
   testPart2(test, 10);
+  console.log('---------------------');
 
 }
 

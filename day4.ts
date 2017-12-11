@@ -66,6 +66,7 @@ function test() {
   testPart1('aa bb cc dd ee', true);
   testPart1('aa bb cc dd aa', false);
   testPart1('aa bb cc dd aaa', true);
+  console.log('---------------------');
 
   const testPart2 = getTestFunction(input => isValidPart2(input.match(/\S+/g)));
   testPart2('abcde fghij', true);
@@ -73,5 +74,6 @@ function test() {
   testPart2('a ab abc abd abf abj', true);
   testPart2('iiii oiii ooii oooi oooo', true);
   testPart2('oiii ioii iioi iiio', false);
+  console.log('---------------------');
 
 }

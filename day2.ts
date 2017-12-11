@@ -64,6 +64,7 @@ function test() {
  2 4 6 8`;
   const testPart1 = getTestFunction(input => calculatePart1(parse(input)));
   testPart1(test1, 18);
+  console.log('---------------------');
 
   const test2 =
 `5 9 2 8
@@ -71,5 +72,6 @@ function test() {
 3 8 6 5`;
   const testPart2 = getTestFunction(input => calculatePart2(parse(input)));
   testPart2(test2, 9);
+  console.log('---------------------');
 
 }
