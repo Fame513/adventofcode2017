@@ -2,11 +2,11 @@ import {getInput, getTestFunction} from './helper';
 
 const DAY = 10;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input: number[], length: number = 256): number {
   let arr = getInitArray(length);
@@ -103,5 +103,8 @@ function test() {
   testPart2('1,2,3', '3efbe78a8d82f29979031a4aa0b16a9d');
   testPart2('1,2,4', '63960835bcdc130f0b66d7ff4f6a5a8e');
   console.log('-------------------------');
+}
 
+export function hash (input: string): string {
+  return calculatePart2(getCharSequence(input));
 }
