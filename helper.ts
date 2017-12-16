@@ -3,9 +3,6 @@ const http = require('http');
 
 const session = '53616c7465645f5ff606a55b6e6a43c5ed75d0a3a2e357ee6caa1f99231c79436bc89a8bcb7b24b62ff34df27bd8c8ae';
 
-type strOrNum = string | number;
-type strNumOrBool = string | number | boolean;
-
 export function getInput(day: number): Promise<string> {
   return new Promise((resolve, reject) => {
     const options = {
@@ -34,8 +31,8 @@ export function getInput(day: number): Promise<string> {
   })
 }
 
-export function getTestFunction(call: (input) => strNumOrBool): (data: strOrNum, expected: strNumOrBool) => boolean {
-  return (data: string, expected: strNumOrBool) => {
+export function getTestFunction(call: (input) => any): (data: any, expected: any) => boolean {
+  return (data: string, expected: any) => {
     const actual = call(data);
     if (actual === expected)
       console.log('\x1b[32mSuccess test\x1b[0m:\x1b[36m', data,'\x1b[32m', actual, '\x1b[0m');
