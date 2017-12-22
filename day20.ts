@@ -18,30 +18,40 @@ function calculatePart1(input: Particle[]): number {
 
 function calculatePart2(input: Particle[]) {
   const collapsed: Set<number> = new Set();
-  for (let t = 0; t < 1000; t++) {
-    if (t % 1000 === 0) {
-      // console.log(t);
-    } 
-    let map: {[pos: string]: number[]} = {};
-    for (let i = 0; i < input.length; i++) {
-      if (collapsed.has(i)) {
-        continue;
-      }
-      let pos = input[i].getPos(t);
-      let index = `${pos.x}_${pos.y}_${pos.z}`;
-      if (!map[index])
-        map[index] = [];
-      map[index].push(i);
-    }
-    for (let pos in map) {
-      if (map[pos].length > 1) {
-        let cols = map[pos];
-        for (let col of cols) {
-          collapsed.add(col);
-        }
+  for(let i = 0; i < input.length - 1; i++) {
+    for (let j = i + 1; j < input.length; j++) {
+      if (input[i].isCollapse(input[j])) {
+        collapsed.add(i);
+        collapsed.add(j);
       }
     }
   }
+  
+  
+  // for (let t = 0; t < 1000; t++) {
+  //   if (t % 1000 === 0) {
+  //     // console.log(t);
+  //   } 
+  //   let map: {[pos: string]: number[]} = {};
+  //   for (let i = 0; i < input.length; i++) {
+  //     if (collapsed.has(i)) {
+  //       continue;
+  //     }
+  //     let pos = input[i].getPos(t);
+  //     let index = `${pos.x}_${pos.y}_${pos.z}`;
+  //     if (!map[index])
+  //       map[index] = [];
+  //     map[index].push(i);
+  //   }
+  //   for (let pos in map) {
+  //     if (map[pos].length > 1) {
+  //       let cols = map[pos];
+  //       for (let col of cols) {
+  //         collapsed.add(col);
+  //       }
+  //     }
+  //   }
+  // }
 
   return input.length - collapsed.size;
 }
@@ -80,6 +90,20 @@ p=<3,0,0>, v=<-1,0,0>, a=<0,0,0>`;
   console.log('---------------------');
 }
 
+function qE(a: number, b: number, c: number): number[] {
+  if (a === 0) {
+    return [-b / c];
+  }
+  let r1 = (-1 * b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
+  let r2 = (-1 * b - Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
+  let result: number[] = [];
+  if (r1 && r1 > 0)
+    result.push(r1);
+  if (r2 && r2 > 0)
+    result.push(r2);
+  return result;
+}
+
 export class Vector {
   x: number;
   y: number;
@@ -116,6 +140,31 @@ export class Particle {
     return Math.abs(pos.x) + Math.abs(pos.y) + Math.abs(pos.z);
   }
   
+  isCollapse(part: Particle): boolean {
+    let ax = (this.a.x - part.a.x) / 2;
+    let bx = (this.v.x - part.v.x);
+    let cx = (this.p.x - part.p.x);
+    let qex = qE(ax, bx, cx);
+
+    let ay = (this.a.y - part.a.y) / 2;
+    let by = (this.v.y - part.v.y);
+    let cy = (this.p.y - part.p.y);
+    let qey = qE(ay, by, cy);
+
+    let az = (this.a.z - part.a.z) / 2;
+    let bz = (this.v.z - part.v.z);
+    let cz = (this.p.z - part.p.z);
+    let qez = qE(az, bz, cz);
+    
+    for(let val of qex) {
+      console.log(val);
+      if (qey.indexOf(val) >= 0 && qez.indexOf(val) >= 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   private getProgressSum(a: number, d: number, n: number): number {
     return ((2*a + d*(n - 1))/2)*n;
   }
@@ -123,7 +172,7 @@ export class Particle {
 }
 
 test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
