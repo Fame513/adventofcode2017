@@ -18,40 +18,28 @@ function calculatePart1(input: Particle[]): number {
 
 function calculatePart2(input: Particle[]) {
   const collapsed: Set<number> = new Set();
-  for(let i = 0; i < input.length - 1; i++) {
-    for (let j = i + 1; j < input.length; j++) {
-      if (input[i].isCollapse(input[j])) {
-        collapsed.add(i);
-        collapsed.add(j);
+  
+  for (let t = 0; t < 1000; t++) {
+    let map: {[pos: string]: number[]} = {};
+    for (let i = 0; i < input.length; i++) {
+      if (collapsed.has(i)) {
+        continue;
+      }
+      let pos = input[i].getPos(t);
+      let index = `${pos.x}_${pos.y}_${pos.z}`;
+      if (!map[index])
+        map[index] = [];
+      map[index].push(i);
+    }
+    for (let pos in map) {
+      if (map[pos].length > 1) {
+        let cols = map[pos];
+        for (let col of cols) {
+          collapsed.add(col);
+        }
       }
     }
   }
-  
-  
-  // for (let t = 0; t < 1000; t++) {
-  //   if (t % 1000 === 0) {
-  //     // console.log(t);
-  //   } 
-  //   let map: {[pos: string]: number[]} = {};
-  //   for (let i = 0; i < input.length; i++) {
-  //     if (collapsed.has(i)) {
-  //       continue;
-  //     }
-  //     let pos = input[i].getPos(t);
-  //     let index = `${pos.x}_${pos.y}_${pos.z}`;
-  //     if (!map[index])
-  //       map[index] = [];
-  //     map[index].push(i);
-  //   }
-  //   for (let pos in map) {
-  //     if (map[pos].length > 1) {
-  //       let cols = map[pos];
-  //       for (let col of cols) {
-  //         collapsed.add(col);
-  //       }
-  //     }
-  //   }
-  // }
 
   return input.length - collapsed.size;
 }
@@ -76,7 +64,6 @@ async function run() {
 function test() {
   const test1 = `p=<3,0,0>, v=<2,0,0>, a=<-1,0,0>
 p=<4,0,0>, v=<0,0,0>, a=<-2,0,0>`;
-  console.log(parse(test1));
   const testPart1 = getTestFunction(input => calculatePart1(parse(input)));
   testPart1(test1, 0);
   console.log('---------------------');
@@ -88,20 +75,6 @@ p=<3,0,0>, v=<-1,0,0>, a=<0,0,0>`;
   const testPart2 = getTestFunction(input => calculatePart2(parse(input)));
   testPart2(test2, 1);
   console.log('---------------------');
-}
-
-function qE(a: number, b: number, c: number): number[] {
-  if (a === 0) {
-    return [-b / c];
-  }
-  let r1 = (-1 * b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-  let r2 = (-1 * b - Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-  let result: number[] = [];
-  if (r1 && r1 > 0)
-    result.push(r1);
-  if (r2 && r2 > 0)
-    result.push(r2);
-  return result;
 }
 
 export class Vector {
@@ -129,9 +102,9 @@ export class Particle {
   
   getPos(time: number = 0): Vector {
     return {
-      x: this.p.x + this.getProgressSum(this.v.x, this.a.x, time),
-      y: this.p.y + this.getProgressSum(this.v.y, this.a.y, time),
-      z: this.p.z + this.getProgressSum(this.v.z, this.a.z, time)
+      x: this.getPosOne(this.p.x, this.v.x, this.a.x, time),
+      y: this.getPosOne(this.p.y, this.v.y, this.a.y, time),
+      z: this.getPosOne(this.p.z, this.v.z, this.a.z, time)
     }
   }
   
@@ -140,39 +113,14 @@ export class Particle {
     return Math.abs(pos.x) + Math.abs(pos.y) + Math.abs(pos.z);
   }
   
-  isCollapse(part: Particle): boolean {
-    let ax = (this.a.x - part.a.x) / 2;
-    let bx = (this.v.x - part.v.x);
-    let cx = (this.p.x - part.p.x);
-    let qex = qE(ax, bx, cx);
-
-    let ay = (this.a.y - part.a.y) / 2;
-    let by = (this.v.y - part.v.y);
-    let cy = (this.p.y - part.p.y);
-    let qey = qE(ay, by, cy);
-
-    let az = (this.a.z - part.a.z) / 2;
-    let bz = (this.v.z - part.v.z);
-    let cz = (this.p.z - part.p.z);
-    let qez = qE(az, bz, cz);
-    
-    for(let val of qex) {
-      console.log(val);
-      if (qey.indexOf(val) >= 0 && qez.indexOf(val) >= 0) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  private getProgressSum(a: number, d: number, n: number): number {
-    return ((2*a + d*(n - 1))/2)*n;
+  private getPosOne(p: number, v: number, a: number, t: number): number {
+    return (a * t*t)/2 + (v  +  a/2)*t + p;
   }
 
 }
 
 test();
-// run().then(([result1, result2]) => {
-//   console.log('Part 1:', result1);
-//   console.log('Part 2:', result2);
-// });
+run().then(([result1, result2]) => {
+  console.log('Part 1:', result1);
+  console.log('Part 2:', result2);
+});
