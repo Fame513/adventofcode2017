@@ -1,4 +1,4 @@
-import {getInput, getTestFunction} from './helper';
+import {getInput} from './helper';
 
 const DAY = 23;
 
@@ -47,35 +47,26 @@ function calculatePart1(input: Command[]): number {
 }
 
 function calculatePart2(input: Command[]): number {
-  let data: {[reg: string]: number} = {'a': 1};
-  let size = input.length;
+  let c0 = +input[0].data[1];
+  let c4 = +input[4].data[1];
+  let c5 = +input[5].data[1];
+  let c7 = +input[7].data[1];
+  let c30 = +input[30].data[1];
+
+  let h = 0;
   
-  let cursor = 0;
-  while (cursor < size) {
-    let cmd = input[cursor];
-    switch (cmd.cmd) {
-      case 'set': {
-        set(cmd.data[0], cmd.data[1], data);
-        break;
-      }
-      case 'sub': {
-        sub(cmd.data[0], cmd.data[1], data);
-        break;
-      }
-      case 'mul': {
-        mul(cmd.data[0], cmd.data[1], data);
-        break;
-      }
-      case 'jnz': {
-        let val = jnz(cmd.data[0], cmd.data[1], data);
-        cursor += (val === undefined) ? 0 : (val - 1);
+  let b = (c0 * c4) - c5;
+  let c = b - c7;
+  
+  for (;b <= c; b -= c30) {
+    for (let d = 2; d < b; d++) {
+      if (b % d === 0) {
+        h++;
         break;
       }
     }
-
-    cursor++;
   }
-  return data['h'];
+  return h;
 }
 
 function getRegOrVal(reg: string, data: {[reg: string]: number}) {
@@ -113,29 +104,9 @@ function parse(input: string): Command[] {
     });
 }
 
-function prog(): number {
-let a = 1, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0, h = 0;
-
-  b = 99;
-  c = b;
-  if (a !== 0) {
-    b = (b * 100) + 100000;
-    c = b + 17000;
-  }
-  for (;b <= c; b += 17) {
-    for (d = 2; d < b; d++) {
-      if (b % d === 0) {
-        h++;
-        break;
-      }
-    }
-  }
-  return h;
-  
-}
 
 async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
-  return [calculatePart1(parsed), prog()]
+  return [calculatePart1(parsed), calculatePart2(parsed)]
 }
