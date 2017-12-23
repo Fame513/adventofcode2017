@@ -8,10 +8,10 @@ export class Command {
 }
 
 test();
-// run().then(([result1, result2]) => {
-//   console.log('Part 1:', result1);
-//   console.log('Part 2:', result2);
-// });
+run().then(([result1, result2]) => {
+  console.log('Part 1:', result1);
+  console.log('Part 2:', result2);
+});
 
 function calculatePart1(input: Command[]): number {
   let data: {[reg: string]: number} = {};
@@ -41,7 +41,9 @@ function calculatePart1(input: Command[]): number {
         break;
       }
     }
-
+    if (cursor === 23) {
+      console.log(data['g'])
+    }
     cursor++;
   }
   return result;
@@ -115,29 +117,28 @@ function parse(input: string): Command[] {
 }
 
 function prog(): number {
-  let a = 0;
-  let h = 0;
-  let g = 0;
-  
-  let b = 99;
-  let c = b;
-  if (a == 0) {
+let a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0, h = 0;
+
+  b = 99;
+  c = b;
+  if (a !== 0) {
+    console.log('in A');
     b *= 100;
     b += 100000;
     c = b;
     c += 17000;
   }
   while (true) {
-    let f = 1;
-    let d = 2;
+    f = 1;
+    d = 2;
     do {
-      let e = 2;
+      e = 2;
       do {
         g = d;
         g *= e;
         g -= b;
 
-        if (g == 0) {
+        if (g === 0) {
           f = 0;
         }
 
@@ -149,8 +150,6 @@ function prog(): number {
       d++;
       g = d;
       g -= b;
-      console.log(g)
-
     } while (g !== 0);
 
     if (f === 0) {
@@ -171,7 +170,7 @@ function prog(): number {
 async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
-  return [calculatePart1(parsed), calculatePart2(parsed)]
+  return [calculatePart1(parsed), 0]
 }
 
 function test() {
