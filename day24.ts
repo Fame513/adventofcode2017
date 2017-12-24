@@ -4,11 +4,11 @@ const DAY = 24;
 
 let minIniput = Infinity;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input: [number, number][], start: number) {
   if (start === undefined || !input || input.length === 0 ) {
@@ -53,7 +53,7 @@ function parse(input: string): [number, number][] {
     .map(result => [+result[1], +result[2]] as [number, number]);
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   minIniput = Infinity;

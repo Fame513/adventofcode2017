@@ -84,7 +84,7 @@ function parse(input: string): number[] {
     .map(val => +(val.trim()))
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   const parsed2 = getCharSequence(input);

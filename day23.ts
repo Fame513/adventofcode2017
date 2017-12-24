@@ -7,10 +7,10 @@ export class Command {
   data: any[];
 }
 
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input: Command[]): number {
   let data: {[reg: string]: number} = {};
@@ -105,7 +105,7 @@ function parse(input: string): Command[] {
 }
 
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   return [calculatePart1(parsed), calculatePart2(parsed)]

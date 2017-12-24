@@ -4,11 +4,11 @@ const DAY = 8;
 
 let registers: {[reg: string]: number} = {};
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input: Command[]): number {
   registers = {};
@@ -89,7 +89,7 @@ function parse(input: string): Command[] {
      conditionReg: result[4], condition: result[5], conditionVal: +result[6]} as Command))
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   return [calculatePart1(parsed), calculatePart2(parsed)]

@@ -53,7 +53,7 @@ function parse(input: string): Map<Rect, Rect> {
   return map;
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   return [calculate(parsed, 5), calculate(parsed, 18)]
@@ -236,8 +236,8 @@ export class Rect {
 }
 
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });

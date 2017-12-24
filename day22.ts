@@ -2,11 +2,11 @@ import {getInput, getTestFunction} from './helper';
 
 const DAY = 22;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1([input, [width, height]]: [Map<string, string>, [number, number]], iterations: number): number {
   let result = 0;
@@ -75,7 +75,7 @@ function parse(input: string): [Map<string, string>, [number, number]] {
   return [map, [arr[0].length, arr.length]]
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed1 = parse(input);
   const parsed2 = parse(input);

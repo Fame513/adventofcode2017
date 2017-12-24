@@ -2,13 +2,11 @@ import {getInput, getTestFunction} from './helper';
 
 const DAY = 1;
 
-tests();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
-
-
+// tests();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculate(input: string, distance: number) {
   let result = 0;
@@ -24,7 +22,7 @@ function calculate(input: string, distance: number) {
 
 
 
-async function run() {
+export async function run() {
   const input: string = await getInput(DAY);
   const result1 = calculate(input, 1);
   const result2 = calculate(input, input.length / 2);

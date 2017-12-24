@@ -2,11 +2,11 @@ import {getInput, getTestFunction} from './helper';
 
 const DAY = 19;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input: string[]) {
   let direction = 'd';
@@ -71,7 +71,7 @@ function parse(input: string): string[] {
   return input.split('\n');
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   const parsed = parse(input);
   while (parsed[0].length < parsed[1].length)

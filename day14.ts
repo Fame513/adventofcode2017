@@ -3,11 +3,11 @@ import {hash} from './day10';
 
 const DAY = 14;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 function calculatePart1(input) {
   let result = 0;
@@ -68,7 +68,7 @@ function clearArea(map: number[][], row: number, column: number) {
     clearArea(map, row, column + 1);
 }
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   return [calculatePart1(input), calculatePart2(input)]
 }

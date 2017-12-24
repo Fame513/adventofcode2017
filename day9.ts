@@ -2,11 +2,11 @@ import {getInput, getTestFunction} from './helper';
 
 const DAY = 9;
 
-test();
-run().then(([result1, result2]) => {
-  console.log('Part 1:', result1);
-  console.log('Part 2:', result2);
-});
+// test();
+// run().then(([result1, result2]) => {
+//   console.log('Part 1:', result1);
+//   console.log('Part 2:', result2);
+// });
 
 
 function calculatePart1(input) {
@@ -85,7 +85,7 @@ function calculatePart2(input) {
 }
 
 
-async function run() {
+export async function run() {
   const input = await getInput(DAY);
   return [calculatePart1(input), calculatePart2(input)]
 }
