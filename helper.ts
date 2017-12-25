@@ -1,7 +1,7 @@
 declare const require: any;
 const http = require('http');
 
-const session = '53616c7465645f5ff606a55b6e6a43c5ed75d0a3a2e357ee6caa1f99231c79436bc89a8bcb7b24b62ff34df27bd8c8ae';
+const session = '53616c7465645f5f910f34789fd99b65c4e7a84f3eb3161b9088eb70c2f0e89ef871d10b4d826510b43ed72e86e56cc8';
 
 export function getInput(day: number): Promise<string> {
   return new Promise((resolve, reject) => {
